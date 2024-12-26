@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #messages {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Client</h1>
+    <div id="messages"></div>
+    <input type="text" id="command" placeholder="Type your command (e.g., exchange 3 USD EUR GBP)">
+    <button id="send">Send</button>
+    <script>
+        const socket = new WebSocket("ws://localhost:4000");
+        const messagesDiv = document.getElementById("messages");
+        const commandInput = document.getElementById("command");
+        const sendButton = document.getElementById("send");
+
+        function addMessage(message) {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        sendButton.addEventListener("click", () => {
+            const command = commandInput.value.trim();
+            if (command) {
+                socket.send(command);
+                addMessage("You: " + command);
+                commandInput.value = "";
+            }
+        });
+
+        commandInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

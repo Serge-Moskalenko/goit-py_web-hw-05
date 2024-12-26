@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "goit-py-web-hw-05"
+version = "0.1.0"
+description = ""
+authors = ["Serge-Moskalenko <skmos2019@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "^3.11.11"
+websockets = "^14.1"
+aiofile = "^3.9.0"
+aiopath = "^0.7.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
